@@ -46,7 +46,7 @@ function Login() {
                     setShowErrorMsg(true)
                     onSubmitFailure(data.error_msg)
                 }
-            } catch (error) {
+            } catch {
                 setShowErrorMsg(true)
                 onSubmitFailure('Failed to connect to server. Make sure backend is running.')
             }

@@ -1,3 +1,4 @@
+/* global process */
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
@@ -47,7 +48,7 @@ app.post('/login', (req, res) => {
     );
 
     res.json({ jwt_token: token });
-  } catch (error) {
+  } catch {
     res.status(500).json({ error_msg: 'Server error' });
   }
 });
