@@ -22,7 +22,8 @@ function Login() {
     const submitForm=async (e)=>{
             e.preventDefault()
             const userDetails = {username, password};
-            let url="/login"
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            let url = `${apiUrl}/login`;
             
             const options = {
                 method: 'POST',
@@ -35,18 +36,20 @@ function Login() {
 
             }
             
-            let response=await fetch(url,options)
-            
-            let data=await response.json()
-            if(response.ok){
-                onSubmitRequest(data.jwt_token);
-                
-            }
-            else{
+            try {
+                let response=await fetch(url,options)
+                let data=await response.json()
+                if(response.ok){
+                    onSubmitRequest(data.jwt_token);
+                }
+                else{
+                    setShowErrorMsg(true)
+                    onSubmitFailure(data.error_msg)
+                }
+            } catch (error) {
                 setShowErrorMsg(true)
-                onSubmitFailure(data.error_msg)
+                onSubmitFailure('Failed to connect to server. Make sure backend is running.')
             }
-            
             
         }
         
